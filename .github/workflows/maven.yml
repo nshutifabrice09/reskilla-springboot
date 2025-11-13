@@ -17,21 +17,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     services:
       postgres:
         image: postgres:17
-        ports:
-          - 5432:5432
+        ports: [5432:5432]
         env:
-          POSTGRES_DB: testdb
+          POSTGRES_DB: reskilla_db
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: 9042
         options: >-
-          --health-cmd="pg_isready -U postgres"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/reskilla_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 9042
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
 
     steps:
       - name: Checkout repository

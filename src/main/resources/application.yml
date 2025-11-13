@@ -1,8 +1,6 @@
 spring:
   application:
     name: reskilla-backend-application
-  config:
-    import: file:.env[.properties]
   datasource:
     url: ${POSTGRES_URL}
     username: ${POSTGRES_USER}
