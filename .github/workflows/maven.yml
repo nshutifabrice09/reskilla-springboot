@@ -43,16 +43,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+          maven-version: '3.9.11'
 
       - name: Build with Maven
         run: mvn -B clean install
-
-      # Optional: Upload build artifact (updated to v4)
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: reskilla-artifact
-          path: target/*.jar
 
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v6
