@@ -8,6 +8,7 @@ import rw.reskilla_backend.model.User;
 import rw.reskilla_backend.services.UserService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -33,5 +34,9 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @GetMapping("/uuid")
+    public User getUserById(@PathVariable UUID id){
+        return userService.getUser(id);
+    }
 
 }
