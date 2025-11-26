@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import rw.reskilla_backend.model.User;
 import rw.reskilla_backend.services.UserService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 @CrossOrigin("http://localhost:3000")
@@ -19,9 +21,15 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/")
+    @PostMapping("/save")
     public ResponseEntity<User> createUser(@RequestBody User user){
         User saveUser = userService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveUser);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity <List<User>> getUserList(){
+        List<User> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
     }
 }
