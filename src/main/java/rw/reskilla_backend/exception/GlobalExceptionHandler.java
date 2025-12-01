@@ -20,4 +20,20 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(DuplicateEmailException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicationEmailException(
+            DuplicateEmailException ex, WebRequest request) {
+
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.CONFLICT.value(),
+                ex.getMessage(),
+                LocalDateTime.now(),
+                request.getDescription(false)
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+    }
+
+    
 }
